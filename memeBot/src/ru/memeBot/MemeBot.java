@@ -1,0 +1,133 @@
+package ru.memeBot;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
+
+import ru.memeBot.utils.Config;
+
+public class MemeBot extends TelegramLongPollingBot{
+	private final String botToken;
+	private final String botUsername;
+
+	ArrayList<String> who = new ArrayList<String>();
+	ArrayList<String> when = new ArrayList<String>();
+	ArrayList<String> where = new ArrayList<String>();
+	ArrayList<String> does = new ArrayList<String>();
+	ArrayList<String> qu = new ArrayList<String>();
+	private Random random;
+
+	public MemeBot(Config cfg) {
+		this.botToken = cfg.getBotToken();
+		this.botUsername = cfg.getBotUsername();
+		this.who = (ArrayList<String>) cfg.getPhrases().get("who");
+		this.when = (ArrayList<String>) cfg.getPhrases().get("when");
+		this.where = (ArrayList<String>) cfg.getPhrases().get("where");
+		this.does = (ArrayList<String>) cfg.getPhrases().get("does");
+		this.qu = (ArrayList<String>) cfg.getPhrases().get("qu");
+		random = new Random();
+		random.setSeed(System.currentTimeMillis());
+	}
+	
+	
+	@Override
+	public void onUpdateReceived(Update update) {
+		if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().startsWith("/meme")) {
+			SendMessage mem = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId());
+			String when = random(this.when);
+			String who1 = random(this.who);
+			String who2 = random(this.who);
+			String who3 = random(this.who);
+			while(who1.toLowerCase().contains(who2.toLowerCase())||who2.toLowerCase().contains(who1.toLowerCase())) {
+				who2 = random(this.who);
+			}
+			while(who3.toLowerCase().contains(who1.toLowerCase())||who1.toLowerCase().contains(who3.toLowerCase())||who3.toLowerCase().contains(who2.toLowerCase())||who2.toLowerCase().contains(who3.toLowerCase())) {
+				who3 = random(this.who);
+			}
+			if(who2.endsWith("а")) {
+				who2 = who2.substring(0, who2.length()-1)+"у";
+			}else if(who2.startsWith("бесконечное")){
+				
+			}else if(who2.endsWith("я")) {
+				who2 = who2.substring(0, who2.length()-1)+"ю";
+			}else {
+				who2 = who2+"а";
+			}
+			String where = random(this.where);
+			String does1 = random(this.does);
+			String does2 = random(this.does);
+			String says = random(this.qu);
+			
+			while((!says.startsWith("понял"))&&does1.startsWith("спрашивает")) {
+				does1 = random(this.does);
+			}
+
+			while(does2.equalsIgnoreCase(does1)||((!says.startsWith("понял"))&&does2.startsWith("спрашивает"))) {
+				does2 = random(this.does);
+			}
+			if(does1.endsWith("как раз")) {
+				if(who1.endsWith("а")||who1.endsWith("я")) {
+					does1 = does1.replace("ему", "ей");
+				}else if(who1.startsWith("бесконечное")) {
+					does1 = does1.replace("ему", "им");
+				}
+				if(who2.endsWith("у")||who1.endsWith("ю")) {
+					does1 = does1.replace("он", "она");
+				}else if(who2.startsWith("бесконечное")) {
+					does1 = does1.replace("он", "они");
+				}
+				
+			}
+			String meme;
+			if(does1.endsWith("как раз")) {
+
+				meme = "Однажды "+when+", "+who1+" заходит "+where+", видит там "+who2+ ", "+does1 +(
+				random.nextBoolean()?"":", а потом заходит "+ who3 +" и "+does2+": \""+says+"\"");
+			}else {
+				meme = "Однажды "+when+", "+who1+" заходит "+where+", видит там "+who2+ " и "+does1+": \""+says+"\"" ;			
+			}
+			mem.setText(meme);
+			try {
+				Thread.sleep(500);
+				execute(mem);
+				System.out.println("meme: " + meme);
+			} catch (TelegramApiException | InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("unable to send message");
+			}
+			
+			
+			//е бой 
+		}else if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().startsWith("/eeboi")) {
+			
+			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId()).setText("eee boii");
+			try {
+				Thread.sleep(500);
+				execute(msg);
+				System.out.println("eee boi");
+			} catch (TelegramApiException | InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("unable to send eee boi");
+			}
+		}
+	}
+	
+	public String random(ArrayList<String> from) {
+		
+		return from.get(random.nextInt(from.size()));
+	}
+
+	@Override
+	public String getBotToken() {
+		return botToken;
+	}
+	
+	@Override
+	public String getBotUsername() {
+		return botUsername;
+	}
+}
