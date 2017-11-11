@@ -115,27 +115,27 @@ public class Main {
 	}
 	private static Config generateDefaultConfig() {
 		ArrayList<String> qu = new ArrayList<String>() {{
-			add("после шести не ем");
-			add("добрый вечер");
+			add("РїРѕСЃР»Рµ С€РµСЃС‚Рё РЅРµ РµРј");
+			add("РґРѕР±СЂС‹Р№ РІРµС‡РµСЂ");
 		}};
 		ArrayList<String> does = new ArrayList<String>() {{
-			add("говорит");
-			add("спрашивает");
-			add("а он ему как раз");
+			add("РіРѕРІРѕСЂРёС‚");
+			add("СЃРїСЂР°С€РёРІР°РµС‚");
+			add("Р° РѕРЅ РµРјСѓ РєР°Рє СЂР°Р·");
 		}};
 		ArrayList<String> where = new ArrayList<String>() {{
-			add("в бар");
-			add("в столовку");
+			add("РІ Р±Р°СЂ");
+			add("РІ СЃС‚РѕР»РѕРІРєСѓ");
 		}};
 		ArrayList<String> when = new ArrayList<String>() {{
-			add("утром");
-			add("вечером");
-			add("днем");
-			add("ночью");
+			add("СѓС‚СЂРѕРј");
+			add("РІРµС‡РµСЂРѕРј");
+			add("РґРЅРµРј");
+			add("РЅРѕС‡СЊСЋ");
 		}};
 		ArrayList<String> who = new ArrayList<String>() {{
-			add("шляпа");
-			add("человек");
+			add("С€Р»СЏРїР°");
+			add("С‡РµР»РѕРІРµРє");
 		}};
 		
 		Map<String,List<String>> phrases = new HashMap<>();
