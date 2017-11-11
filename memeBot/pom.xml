@@ -46,7 +46,7 @@
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
               <mainClass>ru.memeBot.Main</mainClass>
-            </manifest>
+            </manifest> 
           </archive>
         <outputEncoding>UTF-8</outputEncoding>
         </configuration>
