@@ -3,6 +3,10 @@
   <groupId>memeBot</groupId>
   <artifactId>memeBot</artifactId>
   <version>1.0</version>
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   <dependencies>
   	  <dependency>
          <groupId>org.telegram</groupId>
@@ -44,6 +48,7 @@
               <mainClass>ru.memeBot.Main</mainClass>
             </manifest>
           </archive>
+        <outputEncoding>UTF-8</outputEncoding>
         </configuration>
       </plugin>
       <plugin>
@@ -59,6 +64,7 @@
             <configuration>
               <minimizeJar>false</minimizeJar>
               <shadedArtifactAttached>true</shadedArtifactAttached>
+              <outputEncoding>UTF-8</outputEncoding>
             </configuration>
           </execution>
         </executions>
