@@ -38,57 +38,57 @@ public class MemeBot extends TelegramLongPollingBot{
 	public void onUpdateReceived(Update update) {
 		if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().startsWith("/meme")) {
 			SendMessage mem = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId());
-			String when = random(this.when);
-			String who1 = random(this.who);
-			String who2 = random(this.who);
-			String who3 = random(this.who);
+			String when = randomFromArray(this.when);
+			String who1 = randomFromArray(this.who);
+			String who2 = randomFromArray(this.who);
+			String who3 = randomFromArray(this.who);
 			while(who1.toLowerCase().contains(who2.toLowerCase())||who2.toLowerCase().contains(who1.toLowerCase())) {
-				who2 = random(this.who);
+				who2 = randomFromArray(this.who);
 			}
 			while(who3.toLowerCase().contains(who1.toLowerCase())||who1.toLowerCase().contains(who3.toLowerCase())||who3.toLowerCase().contains(who2.toLowerCase())||who2.toLowerCase().contains(who3.toLowerCase())) {
-				who3 = random(this.who);
+				who3 = randomFromArray(this.who);
 			}
-			if(who2.endsWith("а")) {
-				who2 = who2.substring(0, who2.length()-1)+"у";
-			}else if(who2.startsWith("бесконечное")){
+			if(who2.endsWith("Р°")) {
+				who2 = who2.substring(0, who2.length()-1)+"Сѓ";
+			}else if(who2.startsWith("Р±РµСЃРєРѕРЅРµС‡РЅРѕРµ")){
 				
-			}else if(who2.endsWith("я")) {
-				who2 = who2.substring(0, who2.length()-1)+"ю";
+			}else if(who2.endsWith("СЏ")) {
+				who2 = who2.substring(0, who2.length()-1)+"СЋ";
 			}else {
-				who2 = who2+"а";
+				who2 = who2+"Р°";
 			}
-			String where = random(this.where);
-			String does1 = random(this.does);
-			String does2 = random(this.does);
-			String says = random(this.qu);
+			String where = randomFromArray(this.where);
+			String does1 = randomFromArray(this.does);
+			String does2 = randomFromArray(this.does);
+			String says = randomFromArray(this.qu);
 			
-			while((!says.startsWith("понял"))&&does1.startsWith("спрашивает")) {
-				does1 = random(this.does);
+			while((!says.startsWith("РїРѕРЅСЏР»"))&&does1.startsWith("СЃРїСЂР°С€РёРІР°РµС‚")) {
+				does1 = randomFromArray(this.does);
 			}
 
-			while(does2.equalsIgnoreCase(does1)||((!says.startsWith("понял"))&&does2.startsWith("спрашивает"))) {
-				does2 = random(this.does);
+			while(does2.equalsIgnoreCase(does1)||((!says.startsWith("РїРѕРЅСЏР»"))&&does2.startsWith("СЃРїСЂР°С€РёРІР°РµС‚"))) {
+				does2 = randomFromArray(this.does);
 			}
-			if(does1.endsWith("как раз")) {
-				if(who1.endsWith("а")||who1.endsWith("я")) {
-					does1 = does1.replace("ему", "ей");
-				}else if(who1.startsWith("бесконечное")) {
-					does1 = does1.replace("ему", "им");
+			if(does1.endsWith("РєР°Рє СЂР°Р·")) {
+				if(who1.endsWith("Р°")||who1.endsWith("СЏ")) {
+					does1 = does1.replace("РµРјСѓ", "РµР№");
+				}else if(who1.startsWith("Р±РµСЃРєРѕРЅРµС‡РЅРѕРµ")) {
+					does1 = does1.replace("РµРјСѓ", "РёРј");
 				}
-				if(who2.endsWith("у")||who1.endsWith("ю")) {
-					does1 = does1.replace("он", "она");
-				}else if(who2.startsWith("бесконечное")) {
-					does1 = does1.replace("он", "они");
+				if(who2.endsWith("Сѓ")||who1.endsWith("СЋ")) {
+					does1 = does1.replace("РѕРЅ", "РѕРЅР°");
+				}else if(who2.startsWith("Р±РµСЃРєРѕРЅРµС‡РЅРѕРµ")) {
+					does1 = does1.replace("РѕРЅ", "РѕРЅРё");
 				}
 				
 			}
 			String meme;
-			if(does1.endsWith("как раз")) {
+			if(does1.endsWith("РєР°Рє СЂР°Р·")) {
 
-				meme = "Однажды "+when+", "+who1+" заходит "+where+", видит там "+who2+ ", "+does1 +(
-				random.nextBoolean()?"":", а потом заходит "+ who3 +" и "+does2+": \""+says+"\"");
+				meme = "РћРґРЅР°Р¶РґС‹ "+when+", "+who1+" Р·Р°С…РѕРґРёС‚ "+where+", РІРёРґРёС‚ С‚Р°Рј "+who2+ ", "+does1 +(
+				random.nextBoolean()?"":", Р° РїРѕС‚РѕРј Р·Р°С…РѕРґРёС‚ "+ who3 +" Рё "+does2+": \""+says+"\"");
 			}else {
-				meme = "Однажды "+when+", "+who1+" заходит "+where+", видит там "+who2+ " и "+does1+": \""+says+"\"" ;			
+				meme = "РћРґРЅР°Р¶РґС‹ "+when+", "+who1+" Р·Р°С…РѕРґРёС‚ "+where+", РІРёРґРёС‚ С‚Р°Рј "+who2+ " Рё "+does1+": \""+says+"\"" ;			
 			}
 			mem.setText(meme);
 			try {
@@ -101,7 +101,7 @@ public class MemeBot extends TelegramLongPollingBot{
 			}
 			
 			
-			//е бой 
+			//пїЅ пїЅпїЅпїЅ 
 		}else if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().startsWith("/eeboi")) {
 			
 			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId()).setText("eee boii");
@@ -116,7 +116,7 @@ public class MemeBot extends TelegramLongPollingBot{
 		}
 	}
 	
-	public String random(ArrayList<String> from) {
+	public String randomFromArray(ArrayList<String> from) {
 		
 		return from.get(random.nextInt(from.size()));
 	}
