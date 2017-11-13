@@ -65,7 +65,7 @@ public class Main {
 				System.exit(0);
 			}
 			FileInputStream fis = new FileInputStream(cfg);
-			InputStreamReader isr = new InputStreamReader(fis);
+			InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
 			BufferedReader bufferedReader = new BufferedReader(isr);
 			StringBuilder sb = new StringBuilder();
 			String line;

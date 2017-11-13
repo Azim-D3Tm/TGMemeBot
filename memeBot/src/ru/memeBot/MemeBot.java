@@ -90,6 +90,12 @@ public class MemeBot extends TelegramLongPollingBot{
 			}else {
 				meme = "Однажды "+when+", "+who1+" заходит "+where+", видит там "+who2+ " и "+does1+": \""+says+"\"" ;			
 			}
+			
+			if(random.nextInt(69)==13) {
+				meme = "политех сасат";
+			}
+			
+			
 			mem.setText(meme);
 			try {
 				Thread.sleep(500);
@@ -101,10 +107,20 @@ public class MemeBot extends TelegramLongPollingBot{
 			}
 			
 			
-			//� ��� 
+			//eee boii
 		}else if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().startsWith("/eeboi")) {
 			
 			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId()).setText("eee boii");
+			try {
+				Thread.sleep(500);
+				execute(msg);
+				System.out.println("eee boi");
+			} catch (TelegramApiException | InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("unable to send eee boi");
+			}
+		}else if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().contains("есть два стула")) {
+			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId()).setText("и оба твои");
 			try {
 				Thread.sleep(500);
 				execute(msg);
