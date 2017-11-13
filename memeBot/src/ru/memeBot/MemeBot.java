@@ -127,7 +127,7 @@ public class MemeBot extends TelegramLongPollingBot{
 				System.out.println("eee boi");
 			} catch (TelegramApiException | InterruptedException e) {
 				e.printStackTrace();
-				System.out.println("unable to send eee boi");
+				System.out.println("unable to send  eee boi");
 			}
 		}
 	}
