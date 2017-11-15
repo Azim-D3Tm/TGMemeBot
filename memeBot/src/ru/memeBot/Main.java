@@ -24,7 +24,8 @@ import ru.memeBot.utils.Config;
 
 public class Main {
 	
-	public static Config config;
+	private static Config config;
+	private static ArrayList<Meme> memes = new ArrayList<Meme>();
 	public static Gson gson;
 	
 	public static void main(String[] args) {
@@ -41,7 +42,7 @@ public class Main {
 		}
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        MemeBot bot = new MemeBot(config);
+        MemeBot bot = new MemeBot(config,memes);
         try {
     		System.out.println("Starting the bot");
 			telegramBotsApi.registerBot(bot);
@@ -65,27 +66,29 @@ public class Main {
 				System.out.println("Successfully created default config file, please, enter valid bot username and bot token and then try again.");
 				System.exit(0);
 			}
+			config = gson.fromJson(readFile(cfg), Config.class);
+			if(config.needGenerateDefaultConfig()) {
 			File dMeme = new File("defaultMeme.json");
 			if(!dMeme.exists()) {
-				dMeme.createNewFile();
-				System.out.println("Creating default meme for examples...");
-				if(!writeDefaults(dMeme, new Meme())) {
-					System.out.println("Unable to create default meme, shuttong down...");
+					dMeme.createNewFile();
+					System.out.println("Creating default meme for examples...");
+					if(!writeDefaults(dMeme, new Meme())) {
+						System.out.println("Unable to create default meme, shuttong down...");
+					}
 				}
 			}
-			FileInputStream fis = new FileInputStream(cfg);
-			InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
-			BufferedReader bufferedReader = new BufferedReader(isr);
-			StringBuilder sb = new StringBuilder();
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-			    sb.append(line);
+			System.out.println("Loading memes");
+			File dir = new File(".");
+	        File[] filesList = dir.listFiles();
+			for(File f:filesList) {
+				if(f.isFile()) {
+					if(f.getName().endsWith(".json")&&!(f.getName().startsWith("config.json")||f.getName().contains("config.json")||f.getName().equals("config.json"))){
+						memes.add(gson.fromJson(readFile(f), Meme.class));
+						System.out.println("    Loaded meme from "+f.getName());
+					}
+				}
 			}
-			String json = sb.toString();
-			config = gson.fromJson(json, Config.class);
-			bufferedReader.close();
-			isr.close();
-			fis.close();
+			System.out.println("Loaded memes!");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -108,8 +111,6 @@ public class Main {
 	}
 	
 	private static boolean writeDefaults(File file, Object obj) {
-		
-		
 		try {
 			FileWriter fw = new FileWriter(file);
 			gson.toJson(obj, fw);
@@ -120,6 +121,22 @@ public class Main {
             return false;
         }
 		return true;
+	}
+	
+	private static String readFile(File file) throws IOException {
+		FileInputStream fis = new FileInputStream(file);
+		InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
+		BufferedReader bufferedReader = new BufferedReader(isr);
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = bufferedReader.readLine()) != null) {
+		    sb.append(line);
+		}
+		fis.close();
+		isr.close();
+		bufferedReader.close();
+		String json = sb.toString();
+		return json;
 	}
 	
 	
@@ -165,7 +182,7 @@ public class Main {
 		phrases.put("when", when);
 		phrases.put("who", who);
 		
-		Config cfg = new Config("Your_Bot_Username", "123456789:abcdefghijklmnopqrstuvwxyzEtcEtcEtc", phrases);
+		Config cfg = new Config("Your_Bot_Username", "123456789:abcdefghijklmnopqrstuvwxyzEtcEtcEtc", phrases, true);
 		
 		return cfg;
 	}

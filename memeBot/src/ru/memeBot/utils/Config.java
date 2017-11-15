@@ -7,10 +7,12 @@ public class Config {
 	private String botUsername;
 	private String botToken;
 	private Map<String,List<String>> phrases;
-	public Config(String botUsername, String botToken, Map<String, List<String>> phrases) {
+	private boolean generateDefaultMeme;
+	public Config(String botUsername, String botToken, Map<String, List<String>> phrases, boolean genDefCfg) {
 		this.setBotUsername(botUsername);
 		this.setBotToken(botToken);
 		this.setPhrases(phrases);
+		this.generateDefaultMeme = genDefCfg;
 	}
 	public String getBotUsername() {
 		return botUsername;
@@ -29,6 +31,12 @@ public class Config {
 	}
 	public void setPhrases(Map<String,List<String>> phrases) {
 		this.phrases = phrases;
+	}
+	public boolean needGenerateDefaultConfig() {
+		return generateDefaultMeme;
+	}
+	public void setGenerateDefaultConfig(boolean generateDefaultConfig) {
+		this.generateDefaultMeme = generateDefaultConfig;
 	}
 	
 }

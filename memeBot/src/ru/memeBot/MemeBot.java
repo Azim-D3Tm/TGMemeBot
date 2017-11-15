@@ -15,15 +15,15 @@ public class MemeBot extends TelegramLongPollingBot{
 	private final String botToken;
 	private final String botUsername;
 
-	ArrayList<String> who = new ArrayList<String>();
-	ArrayList<String> when = new ArrayList<String>();
-	ArrayList<String> where = new ArrayList<String>();
-	ArrayList<String> does = new ArrayList<String>();
-	ArrayList<String> qu = new ArrayList<String>();
-	ArrayList<Meme> memes = new ArrayList<Meme>();
+	private ArrayList<String> who = new ArrayList<String>();
+	private ArrayList<String> when = new ArrayList<String>();
+	private ArrayList<String> where = new ArrayList<String>();
+	private ArrayList<String> does = new ArrayList<String>();
+	private ArrayList<String> qu = new ArrayList<String>();
+	private ArrayList<Meme> memes = new ArrayList<Meme>();
 	private Random random;
 
-	public MemeBot(Config cfg) {
+	public MemeBot(Config cfg,ArrayList<Meme> memes) {
 		this.botToken = cfg.getBotToken();
 		this.botUsername = cfg.getBotUsername();
 		this.who = (ArrayList<String>) cfg.getPhrases().get("who");
@@ -31,6 +31,7 @@ public class MemeBot extends TelegramLongPollingBot{
 		this.where = (ArrayList<String>) cfg.getPhrases().get("where");
 		this.does = (ArrayList<String>) cfg.getPhrases().get("does");
 		this.qu = (ArrayList<String>) cfg.getPhrases().get("qu");
+		this.memes = memes;
 		random = new Random();
 		random.setSeed(System.currentTimeMillis());
 	}
@@ -96,7 +97,9 @@ public class MemeBot extends TelegramLongPollingBot{
 			if(random.nextInt(69)==13) {
 				meme = "политех сасат";
 			}
-			
+			//Meme rand = memes.get(random.nextInt(memes.size()));;
+			//String tmeme = rand.generateMeme();
+			//System.out.println("rdg: "+tmeme);
 			
 			mem.setText(meme);
 			try {

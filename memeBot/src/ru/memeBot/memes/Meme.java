@@ -31,8 +31,8 @@ public class Meme {
 		String  dpattern = "Однажды @time@, @name@ зашел в @place@ и увидел @name@";
 		List<String> dnoRepeat = Arrays.asList("time","name");
 		Map<String,List<String>> dphrases = new HashMap<String,List<String>>();
-		List<String> time = Arrays.asList("Cтудент","оно");
-		List<String> name = Arrays.asList("время","ночью");
+		List<String> name = Arrays.asList("Cтудент","оно");
+		List<String> time = Arrays.asList("время","ночью");
 		List<String> place = Arrays.asList("место","бар");
 		dphrases.put("time", time);
 		dphrases.put("name", name);
@@ -48,12 +48,20 @@ public class Meme {
 		String meme = "";
 		meme = pattern;
 		for(String key:phrases.keySet()) {
+			System.out.println(key+" : ");
+			for(String tempstr:phrases.get(key)) {
+				System.out.println("    "+tempstr);
+			}
+			
 			
 			while(meme.contains("@"+key+"@")) {
+				//System.out.println("2");
 				String replacement = randomFromArray(phrases.get(key));
 				
 				while(noRepeat.contains(key) && meme.contains(replacement)) {
 					replacement = randomFromArray(phrases.get(key));
+
+					System.out.println("3");
 				}
 				
 				meme.replaceFirst(Pattern.quote("@"+key+"@"), replacement);
