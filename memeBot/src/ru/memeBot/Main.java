@@ -114,26 +114,36 @@ public class Main {
 		return true;
 	}
 	private static Config generateDefaultConfig() {
-		ArrayList<String> qu = new ArrayList<String>() {{
+		ArrayList<String> qu = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
 			add("после шести не ем");
 			add("добрый вечер");
 		}};
-		ArrayList<String> does = new ArrayList<String>() {{
+		ArrayList<String> does = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
 			add("говорит");
 			add("спрашивает");
 			add("а он ему как раз");
 		}};
-		ArrayList<String> where = new ArrayList<String>() {{
+		ArrayList<String> where = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
 			add("в бар");
 			add("в столовку");
 		}};
-		ArrayList<String> when = new ArrayList<String>() {{
+		ArrayList<String> when = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
 			add("утром");
 			add("вечером");
 			add("днем");
 			add("ночью");
 		}};
-		ArrayList<String> who = new ArrayList<String>() {{
+		ArrayList<String> who = new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
 			add("шляпа");
 			add("человек");
 		}};

@@ -119,15 +119,35 @@ public class MemeBot extends TelegramLongPollingBot{
 				e.printStackTrace();
 				System.out.println("unable to send eee boi");
 			}
-		}else if(update.hasMessage()&&update.getMessage().hasText()&&update.getMessage().getText().toLowerCase().contains("есть два стула")) {
+		}else if(update.hasMessage()&&update.getMessage().hasText()&&(
+				update.getMessage().getText().toLowerCase().contains("есть два стула")||
+				update.getMessage().getText().toLowerCase().contains("два стула")
+				)) {
 			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setReplyToMessageId(update.getMessage().getMessageId()).setText("и оба твои");
 			try {
 				Thread.sleep(500);
 				execute(msg);
-				System.out.println("eee boi");
+				System.out.println("two chairs");
 			} catch (TelegramApiException | InterruptedException e) {
 				e.printStackTrace();
-				System.out.println("unable to send  eee boi");
+				System.out.println("unable to send two chairs");
+			}
+		}else if(update.hasMessage()&&update.getMessage().hasText()&&(
+				update.getMessage().getText().endsWith(".") ||
+				update.getMessage().getText().endsWith(",")
+		)) {
+			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setText((random.nextBoolean()?"Понял, да?":"Понял, нет?"));
+			
+			if(update.getMessage().isReply()) {
+				msg.setReplyToMessageId(update.getMessage().getReplyToMessage().getMessageId());
+			}
+			try {
+				Thread.sleep(500);
+				execute(msg);
+				System.out.println("understood?");
+			} catch (TelegramApiException | InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("unable to send understood?");
 			}
 		}
 	}
