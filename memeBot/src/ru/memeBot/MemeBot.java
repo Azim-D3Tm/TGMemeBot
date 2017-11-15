@@ -136,18 +136,25 @@ public class MemeBot extends TelegramLongPollingBot{
 				update.getMessage().getText().endsWith(".") ||
 				update.getMessage().getText().endsWith(",")
 		)) {
-			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId()).setText((random.nextBoolean()?"Понял, да?":"Понял, нет?"));
+			SendMessage msg = new SendMessage().setChatId(update.getMessage().getChatId());
 			
 			if(update.getMessage().isReply()) {
 				msg.setReplyToMessageId(update.getMessage().getReplyToMessage().getMessageId());
 			}
-			try {
-				Thread.sleep(500);
-				execute(msg);
-				System.out.println("understood?");
-			} catch (TelegramApiException | InterruptedException e) {
-				e.printStackTrace();
-				System.out.println("unable to send understood?");
+			if(update.getMessage().getText().endsWith(",")) {
+				msg.setText((random.nextBoolean()?"понял, да?":"понял, нет?"));
+			}else {
+				msg.setText((random.nextBoolean()?"Понял, да?":"Понял, нет?"));
+			}
+			if(random.nextInt(69)==13) {
+				try {
+					Thread.sleep(500);
+					execute(msg);
+					System.out.println("understood?");
+				} catch (TelegramApiException | InterruptedException e) {
+					e.printStackTrace();
+					System.out.println("unable to send understood?");
+				}
 			}
 		}
 	}
