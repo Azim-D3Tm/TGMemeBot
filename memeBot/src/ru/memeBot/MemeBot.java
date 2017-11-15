@@ -8,6 +8,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import ru.memeBot.memes.Meme;
 import ru.memeBot.utils.Config;
 
 public class MemeBot extends TelegramLongPollingBot{
@@ -19,6 +20,7 @@ public class MemeBot extends TelegramLongPollingBot{
 	ArrayList<String> where = new ArrayList<String>();
 	ArrayList<String> does = new ArrayList<String>();
 	ArrayList<String> qu = new ArrayList<String>();
+	ArrayList<Meme> memes = new ArrayList<Meme>();
 	private Random random;
 
 	public MemeBot(Config cfg) {

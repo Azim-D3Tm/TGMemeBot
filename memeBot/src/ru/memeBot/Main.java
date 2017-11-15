@@ -19,6 +19,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ru.memeBot.memes.Meme;
 import ru.memeBot.utils.Config;
 
 public class Main {
@@ -57,12 +58,20 @@ public class Main {
 			if(!cfg.exists()) {
 				cfg.createNewFile();
 				System.out.println("No config file found, creating a new one...");
-				if(!writeDefaults(cfg)) {
+				if(!writeDefaults(cfg,generateDefaultConfig())) {
 					System.out.println("Unable to create config file, shuttong down...");
 					System.exit(1);
 				}
 				System.out.println("Successfully created default config file, please, enter valid bot username and bot token and then try again.");
 				System.exit(0);
+			}
+			File dMeme = new File("defaultMeme.json");
+			if(!dMeme.exists()) {
+				dMeme.createNewFile();
+				System.out.println("Creating default meme for examples...");
+				if(!writeDefaults(dMeme, new Meme())) {
+					System.out.println("Unable to create default meme, shuttong down...");
+				}
 			}
 			FileInputStream fis = new FileInputStream(cfg);
 			InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
@@ -98,13 +107,12 @@ public class Main {
 		return true;
 	}
 	
-	private static boolean writeDefaults(File file) {
+	private static boolean writeDefaults(File file, Object obj) {
 		
-		Config cfg = generateDefaultConfig();
 		
 		try {
 			FileWriter fw = new FileWriter(file);
-			gson.toJson(cfg, fw);
+			gson.toJson(obj, fw);
             fw.close();
 
         } catch (IOException e) {
@@ -113,6 +121,8 @@ public class Main {
         }
 		return true;
 	}
+	
+	
 	private static Config generateDefaultConfig() {
 		ArrayList<String> qu = new ArrayList<String>() {
 			private static final long serialVersionUID = 1L;
@@ -159,5 +169,4 @@ public class Main {
 		
 		return cfg;
 	}
-
 }
