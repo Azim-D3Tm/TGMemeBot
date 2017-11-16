@@ -97,9 +97,9 @@ public class MemeBot extends TelegramLongPollingBot{
 			if(random.nextInt(69)==13) {
 				meme = "политех сасат";
 			}
-			//Meme rand = memes.get(random.nextInt(memes.size()));;
-			//String tmeme = rand.generateMeme();
-			//System.out.println("rdg: "+tmeme);
+			Meme rand = memes.get(random.nextInt(memes.size()));;
+			String tmeme = rand.generateMeme();
+			System.out.println("rdg: "+tmeme);
 			
 			mem.setText(meme);
 			try {

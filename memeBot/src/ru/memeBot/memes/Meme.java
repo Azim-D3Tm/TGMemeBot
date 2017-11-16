@@ -19,10 +19,17 @@ public class Meme {
 	private List<String> noRepeat;
 	@Expose(serialize = false,deserialize = false)
 	private Random rnd;
-	public Meme(String pattern, Map<String, List<String>> phrases,List<String> noRepeat) {
+	public Meme(String pattern, Map<String, List<String>> phrases,List<String> noRepeat) throws IllegalArgumentException{
 		this.pattern = pattern;
 		this.phrases = phrases;
 		this.noRepeat = noRepeat;
+		for(String nr:noRepeat) {
+			if(phrases.get(nr).size()<2) {
+				throw new IllegalArgumentException();
+			}
+			
+		}
+		
 		this.rnd = new Random();
 		rnd.setSeed(System.currentTimeMillis());
 	}
@@ -64,7 +71,7 @@ public class Meme {
 					System.out.println("3");
 				}
 				
-				meme.replaceFirst(Pattern.quote("@"+key+"@"), replacement);
+				meme = meme.replaceFirst(Pattern.quote("@"+key+"@"), replacement);
 			}
 			
 		}

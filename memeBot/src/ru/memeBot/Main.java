@@ -18,6 +18,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
 
 import ru.memeBot.memes.Meme;
 import ru.memeBot.utils.Config;
@@ -83,8 +84,12 @@ public class Main {
 			for(File f:filesList) {
 				if(f.isFile()) {
 					if(f.getName().endsWith(".json")&&!(f.getName().startsWith("config.json")||f.getName().contains("config.json")||f.getName().equals("config.json"))){
-						memes.add(gson.fromJson(readFile(f), Meme.class));
-						System.out.println("    Loaded meme from "+f.getName());
+						try {
+							memes.add(gson.fromJson(readFile(f), Meme.class));
+							System.out.println("    Loaded meme from "+f.getName());
+						}catch(JsonParseException ex) {
+							System.out.println("    Error loading meme from "+f.getName());
+						}
 					}
 				}
 			}
